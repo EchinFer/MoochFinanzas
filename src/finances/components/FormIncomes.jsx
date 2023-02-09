@@ -114,7 +114,6 @@ export const FormIncomes = () => {
                                 <CustomDatePicker
                                     name="fechaTipoPeriodo"
                                     label="Fecha del periodo"
-                                    dependFields ={['esIngresoFijo']}
                                 />
 
                             </Stack>
