@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
 import React from 'react'
-import { Logo } from '../../../components/Logo/Logo'
+import { Logo } from '../../../components/logo/Logo'
 
 export const DrawerHeader = () => {
   return (

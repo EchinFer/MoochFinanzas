@@ -10,18 +10,19 @@ export const ActionsBlock = () => {
             container
             xs={12}
             rowSpacing={3}
+            justifyContent='space-evenly'
         >
             <Grid xs={12}>
                 <MainTitle>Acciones rápidas</MainTitle>
             </Grid>
-            <Grid xs={4}>
+            <Grid xs={3}>
                 <Button variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR INGRESO</Button>
             </Grid>
-            <Grid xs={4}>
+            <Grid xs={3}>
                 <Button variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR GASTO</Button>
             </Grid>
 
-            <Grid xs={4}>
+            <Grid xs={3}>
                 <Button variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR PRESTAMO</Button>
             </Grid>
 
