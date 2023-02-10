@@ -1,13 +1,10 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Input, InputAdornment, InputLabel, MenuItem, Paper, Select, styled, TextField } from '@mui/material'
+import { Button, InputAdornment, MenuItem, Paper, styled, TextField } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import moment, { now } from 'moment/moment'
+import moment from 'moment/moment'
 import React, { useState } from 'react'
 import { MainTitle } from '../../components/UI/MainTitle'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { currency, dateFormat } from '../../config'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Form, Formik, useFormikContext } from 'formik'
 import { CustomTextField } from '../../components/UI/Form/CustomTextField'
 import { CustomCheckBox } from '../../components/UI/Form/CustomCheckBox'
@@ -15,6 +12,8 @@ import { tiposPeriodo } from '../../constantesDb'
 import { CustomDatePicker } from '../../components/UI/Form/CustomDatePicker'
 import { CustomFileField } from '../../components/UI/Form/CustomFileField'
 import { NumberCurrencyFormat } from '../../components/NumberCurrencyFormat'
+import { useEffect } from 'react'
+import { FormContext } from '../../components/UI/Form/FormContext'
 
 
 
@@ -100,7 +99,12 @@ export const FormIncomes = () => {
                                     select
                                     name="tipoPeriodo"
                                     label="Tipo periodo"
-                                    dependFields ={['esIngresoFijo']}
+                                    dependField={{
+                                        dpnFieldName: 'esIngresoFijo', 
+                                        cFieldName: 'tipoPeriodo', 
+                                        validation: (cv, dv, act) => act(!dv)
+                                    }}
+
                                 >
 
                                     {tiposPeriodoTiempoOption.map((option) => (
@@ -111,9 +115,15 @@ export const FormIncomes = () => {
 
                                 </CustomTextField>
 
+
                                 <CustomDatePicker
                                     name="fechaTipoPeriodo"
                                     label="Fecha del periodo"
+                                    dependField={{
+                                        dpnFieldName: 'esIngresoFijo', 
+                                        cFieldName: 'tipoPeriodo', 
+                                        validation: (cv, dv, act) => act(!dv)
+                                    }}
                                 />
 
                             </Stack>
@@ -142,9 +152,9 @@ export const FormIncomes = () => {
                 </Form>
 
 
-            </Formik>
+            </Formik >
 
 
-        </Grid>
+        </Grid >
     )
 }

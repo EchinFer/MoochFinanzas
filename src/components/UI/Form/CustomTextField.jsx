@@ -1,28 +1,31 @@
 import { TextField } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
-import React from 'react'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-export const CustomTextField = ({ label, dependFields, ...props }) => {
+//configurar por prop types
+export const CustomTextField = ({ label, dependField = { dpnFieldName: '', cFieldName: '', validation : (cv, dv, act) => { } }, ...props }) => {
 
-    const {
-        values: { esIngresoFijo },
-        touched,
-        setFieldValue,
-    } = useFormikContext();
+    const { values, touched } = useFormikContext();
+
+
+    const { [dependField.dpnFieldName]: dependValue, [dependField.cFieldName]: currentValue } = values;
+    const { [dependField.dpnFieldName]: dependTouched } = touched;
+
+    const [disableField, setDisableField] = useState(false);
+    useEffect(() => {
+
+        if(dependField.dpnFieldName != '' && dependField.cFieldName != ''){
+            dependField.validation(currentValue, dependValue, setDisableField);
+        }
+
+    }, [dependValue, dependTouched, props.name]);
 
     const [field, meta] = useField(props);
 
 
-    let disabled = false;
-    useEffect(() => {
-        disabled = !esIngresoFijo;
-    }, [esIngresoFijo, touched.esIngresoFijo, setFieldValue, props.name]);
-    
     return (
         <TextField
-
-            disabled = {disabled}
+            disabled={disableField}
             label={label}
             error={meta.touched && meta.error}
             helperText={meta.touched && meta.error ? meta.error : meta.error}
