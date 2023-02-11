@@ -31,7 +31,8 @@ export const CustomDatePicker = ({ label, dependField = { dpnFieldName: '', cFie
                 label={label}
                 openTo={props.openTo ?? "year"}
                 inputFormat={props.inputFormat ?? dateFormat.simple}
-                views={props.views ?? ['year', 'month', 'day']}
+                //views={props.views ?? ['year', 'month', 'day']}
+                views={['year', 'month', 'day']}
                 renderInput={(params) => <TextField {...params} helperText={params?.inputProps?.placeholder} />}
                 {...field}
                 {...props}

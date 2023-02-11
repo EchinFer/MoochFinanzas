@@ -1,0 +1,1 @@
+export const MAX_LIMIT_DAYS_MONTH = 31;
