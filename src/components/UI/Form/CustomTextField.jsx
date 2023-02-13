@@ -3,7 +3,7 @@ import { useField, useFormikContext } from 'formik';
 import { useState, useEffect } from 'react';
 
 //configurar por prop types
-export const CustomTextField = ({ label, dependField = { dpnFieldName: '', cFieldName: '', validation : (cv, dv, act) => { } }, ...props }) => {
+export const CustomTextField = ({ label, dependField = { dpnFieldName: '', cFieldName: '', validation: (cv, dv, act) => { } }, ...props }) => {
 
     const { values, touched } = useFormikContext();
 
@@ -14,24 +14,22 @@ export const CustomTextField = ({ label, dependField = { dpnFieldName: '', cFiel
     const [disableField, setDisableField] = useState(false);
     useEffect(() => {
 
-        if(dependField.dpnFieldName != '' && dependField.cFieldName != ''){
+        if (dependField.dpnFieldName != '' && dependField.cFieldName != '') {
             dependField.validation(currentValue, dependValue, setDisableField);
         }
 
     }, [dependValue, dependTouched, props.name]);
 
     const [field, meta] = useField(props);
-
-
     return (
         <TextField
-            disabled={disableField}
-            label={label}
-            error={meta.touched && meta.error}
-            helperText={meta.touched && meta.error ? meta.error : meta.error}
-            variant={props.variant ?? 'outlined'}
             {...field}
             {...props}
+            disabled={disableField}
+            label={label}
+            error={meta.touched && meta.error ? true : false}
+            helperText={meta.touched && meta.error ? meta.error : ""}
+            variant={props.variant ?? 'outlined'}
         />
 
     );

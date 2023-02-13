@@ -78,7 +78,7 @@ export const FormIncomes = () => {
                                 <CustomTextField
                                     name='descripcion'
                                     label="Descripción"
-                                    placeholder='Ej: Paga del mes de noviembre'
+                                    placeholder='Ej: Gasto del mes de noviembre'
                                     multiline
                                     minRows={3}
                                     maxRows={3}
@@ -175,7 +175,6 @@ export const FormIncomes = () => {
                                     />
                                 </HideFieldFormik>
 
-
                             </Stack>
 
                         </CustomPaper>
@@ -187,8 +186,8 @@ export const FormIncomes = () => {
                                 <MainTitle component='h1' variant='h6'>Datos legales</MainTitle>
 
                                 <CustomFileField
-                                    name="facturaLegal"
-                                    label="Cargar Factura"
+                                    name="reciboLegal"
+                                    label="Cargar Recibo"
                                 />
 
                             </Stack>

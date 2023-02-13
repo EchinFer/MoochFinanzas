@@ -17,14 +17,10 @@ export const ActionsBlock = () => {
                 <MainTitle>Acciones rápidas</MainTitle>
             </Grid>
             <Grid xs={3}>
-                <Button component={Link} to='/incomes' variant='contained' size='large'  startIcon={<AddCircleOutline />}>AGREGAR INGRESO</Button>
+                <Button component={Link} to='./incomes' variant='contained' size='large'  startIcon={<AddCircleOutline />}>AGREGAR INGRESO</Button>
             </Grid>
             <Grid xs={3}>
-                <Button component={Link} to='/expenses' variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR GASTO</Button>
-            </Grid>
-
-            <Grid xs={3}>
-                <Button variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR PRESTAMO</Button>
+                <Button component={Link} to='./expenses' variant='contained' size='large' startIcon={<AddCircleOutline />}>AGREGAR GASTO</Button>
             </Grid>
 
         </Grid>

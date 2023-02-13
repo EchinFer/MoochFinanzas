@@ -4,7 +4,7 @@ import { currency } from '../config';
 
 export const NumberFormat = React.forwardRef(function NumberFormatCustom(props, ref) {
     const { onChange, ...other } = props;
-  
+
     return (
         <NumericFormat
             {...other}
@@ -17,10 +17,6 @@ export const NumberFormat = React.forwardRef(function NumberFormatCustom(props, 
                     },
                 });
             }}
-        // thousandSeparator ={currency.thousandSeparator}
-        // decimalScale={currency.decimalScale}
-        // decimalSeparator={currency.decimalSeparator}
-        // valueIsNumericString
         />
     );
 });
