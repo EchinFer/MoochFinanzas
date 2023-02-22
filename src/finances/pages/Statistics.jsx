@@ -8,6 +8,7 @@ import { CustomRangeDatePicker } from '../../components/UI/CustomRangeDatePicker
 
 import { MainTitle } from '../../components/UI/MainTitle'
 import { AnalyticNumbers } from '../../home/components/AnalyticNumbers'
+import { BasicDataTable } from '../components/BasicDataTable';
 
 const CustomPaper = styled(Paper)(({ theme }) =>
   theme.unstable_sx({
@@ -66,6 +67,16 @@ export const Statistics = () => {
         </Grid>
         <Grid xs={6}>
           <IncomeAreaChart slot={'week'} type='bar' />
+        </Grid>
+
+        <Grid xs={12}>
+          <Stack direction='row' justifyContent='space-between'>
+            <MainTitle>Histórico</MainTitle>
+            <CustomRangeDatePicker value={selectionRange} handleSelect={handleSelect} />
+          </Stack>
+        </Grid>
+        <Grid xs={12}>
+          <BasicDataTable />
         </Grid>
       </Grid>
 

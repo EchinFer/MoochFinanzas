@@ -27,7 +27,7 @@ const RangeListItem = ({ name }) => (
         </ListItemButton>
     </ListItem>
 )
-const RangeDatepicker = forwardRef(({ value, onChange }, ref) => (
+const RangeDatepicker = forwardRef(({ startValue, endValue, onChangeStart, onChangeEnd }, ref) => (
     <Stack ref={ref} direction='row' flexWrap={true}>
         <LocalizationProvider dateAdapter={AdapterMoment}>
             <List>
@@ -43,8 +43,8 @@ const RangeDatepicker = forwardRef(({ value, onChange }, ref) => (
                 inputFormat={dateFormat.simple}
                 views={['year', 'month', 'day']}
                 renderInput={(params) => <TextField  {...params} size="small" helperText={params?.inputProps?.placeholder} />}
-                value={value}
-                onChange={onChange}
+                value={startValue}
+                onChange={onChangeStart}
             />
             <Divider orientation='vertical' />
             <StaticDatePicker
@@ -52,8 +52,8 @@ const RangeDatepicker = forwardRef(({ value, onChange }, ref) => (
                 inputFormat={dateFormat.simple}
                 views={['year', 'month', 'day']}
                 renderInput={(params) => <TextField {...params} size="small" helperText={params?.inputProps?.placeholder} />}
-                value={value}
-                onChange={onChange}
+                value={endValue}
+                onChange={onChangeEnd}
             />
 
 
@@ -63,7 +63,8 @@ const RangeDatepicker = forwardRef(({ value, onChange }, ref) => (
 
 export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '', cFieldName: '', validation: (cv, dv, act) => { } }, ...props }) => {
 
-    const [dpValue1, setDpValue1] = useState(moment('13/02/2023', dateFormat.simple))
+    const [dpStartValue, setDpStartValue] = useState(moment('13/02/2023', dateFormat.simple))
+    const [dpEndValue, setDpEndValue] = useState(moment('13/02/2023', dateFormat.simple))
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
 
@@ -88,7 +89,6 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
         }
     }
 
-    // return focus to the button when we transitioned from !open -> open
     const prevOpen = useRef(open);
     useEffect(() => {
         if (prevOpen.current === true && open === false) {
@@ -101,27 +101,13 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
 
     return (
         <>
-            {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-
-                <DatePicker
-                    inputFormat={dateFormat.simple}
-                    views={['year', 'month', 'day']}
-                    renderInput={(params) => <TextField {...params} helperText={params?.inputProps?.placeholder} />}
-                    value={dpValue1}
-                    onChange={handleChangeDp1}
-                />
-            </LocalizationProvider>
-             */}
             <Stack direction='row' spacing={1}>
 
                 <TextField
                     size='small'
-                    label='asdjhas'
+                    label='Rango de fecha'
                     ref={anchorRef}
                     id="composition-button"
-                    aria-controls={open ? 'composition-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-haspopup="true"
                     onClick={handleToggle}
                     InputProps={{
                         readOnly: true,
@@ -161,7 +147,7 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
                     >
                         <Paper elevation={3} sx={{ display: 'flex' }}>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <RangeDatepicker value={dpValue1} onChange={setDpValue1} />
+                                <RangeDatepicker startValue={dpStartValue} endValue={dpEndValue} onChangeStart={setDpStartValue} onChangeEnd={setDpEndValue} />
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
