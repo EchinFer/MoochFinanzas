@@ -8,5 +8,6 @@ export const currency = {
     decimalSeparator: ','
 };
 export const dateFormat = {
-    simple: 'DD/MM/YYYY'
+    simple: 'DD/MM/YYYY',
+    humanDate: 'D MMMM YYYY'
 };

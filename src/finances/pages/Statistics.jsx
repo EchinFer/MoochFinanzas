@@ -21,18 +21,19 @@ export const Statistics = () => {
   const today = new Date()
   const tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
-  const [selectionRange, setSelectionRange] = useState({
-    startDate: today,
-    endDate: tomorrow,
-  });
 
-  const handleSelect = (ranges) => {
-    console.log(ranges);
-    setSelectionRange({
-      startDate: ranges.startDate,
-      endDate: ranges.endDate,
+  const [rangeValue, setRangeValue] = useState({ startDate: today, endDate: today })
+
+  const handleOnChangeRangeDate = ({ startDate, endDate }) => {
+
+    setRangeValue({
+      startDate,
+      endDate
     });
-  };
+
+  }
+
+  console.log(rangeValue);
 
   return (
     <>
@@ -45,7 +46,7 @@ export const Statistics = () => {
         <Grid xs={12}>
           <Stack direction='row' justifyContent='space-between'>
             <MainTitle>Totales</MainTitle>
-            <CustomRangeDatePicker value={selectionRange} handleSelect={handleSelect} />
+            <CustomRangeDatePicker onChange={handleOnChangeRangeDate} />
           </Stack>
         </Grid>
 
@@ -72,7 +73,7 @@ export const Statistics = () => {
         <Grid xs={12}>
           <Stack direction='row' justifyContent='space-between'>
             <MainTitle>Histórico</MainTitle>
-            <CustomRangeDatePicker value={selectionRange} handleSelect={handleSelect} />
+            <CustomRangeDatePicker onChange={handleOnChangeRangeDate} />
           </Stack>
         </Grid>
         <Grid xs={12}>

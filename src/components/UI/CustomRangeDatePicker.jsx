@@ -11,6 +11,7 @@ import { forwardRef } from 'react';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CachedIcon from '@mui/icons-material/Cached';
 import { rangesDatepicker } from '../../constants';
+import { checkPropTypes } from 'prop-types';
 
 const CustomIconButton = styled(IconButton)(({ theme }) => ({
     borderRadius: 4,
@@ -18,6 +19,9 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
     ':hover': {
         backgroundColor: theme.palette.primary.light
     }
+}));
+const CustomDivider = styled(Divider)(({ theme }) => ({
+    margin: 0,
 }));
 
 const RangeListItem = ({ name }) => (
@@ -61,10 +65,11 @@ const RangeDatepicker = forwardRef(({ startValue, endValue, onChangeStart, onCha
     </Stack>
 ));
 
-export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '', cFieldName: '', validation: (cv, dv, act) => { } }, ...props }) => {
+export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
 
-    const [dpStartValue, setDpStartValue] = useState(moment('13/02/2023', dateFormat.simple))
-    const [dpEndValue, setDpEndValue] = useState(moment('13/02/2023', dateFormat.simple))
+    const [dateValue, setDateValue] = useState('');
+    const [dpStartValue, setDpStartValue] = useState(initialValue ? initialValue.startDate : moment(new Date(), dateFormat.simple));
+    const [dpEndValue, setDpEndValue] = useState(initialValue ? initialValue.endDate : moment(new Date(), dateFormat.simple));
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
 
@@ -72,12 +77,42 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
         setOpen((prevOpen) => !prevOpen);
     };
 
-    const handleClose = (event) => {
+    useEffect(() => {
+        setDateValue(`${dpStartValue.format(dateFormat.humanDate)} al ${dpEndValue.format(dateFormat.humanDate)}`);
+    }, [dpStartValue, dpEndValue])
+
+    const onClickApply = () => {
+        // if (anchorRef.current && anchorRef.current.contains(event.target)) {
+        //     return;
+        // }
+
+        setOpen(false);
+
+        applyDateValue();
+    }
+
+    const applyDateValue = () => {
+        onChange({
+            startDate: dpStartValue,
+            endDate: dpEndValue
+        });
+    }
+
+    const handleChangeStartDate = (newValue) => {
+        setDpStartValue(newValue);
+    }
+
+    const handleChangeEndDate = (newValue) => {
+        setDpEndValue(newValue);
+    }
+    const handleClickAway = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
 
         setOpen(false);
+
+        applyDateValue();
     };
 
     function handleListKeyDown(event) {
@@ -101,14 +136,16 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
 
     return (
         <>
-            <Stack direction='row' spacing={1}>
+            <Stack direction='row' spacing={1} sx={{ width: 400 }}>
 
                 <TextField
+                    fullWidth
                     size='small'
                     label='Rango de fecha'
                     ref={anchorRef}
                     id="composition-button"
                     onClick={handleToggle}
+                    value={dateValue}
                     InputProps={{
                         readOnly: true,
                         endAdornment: <InputAdornment position='end'><CalendarMonthIcon /></InputAdornment>,
@@ -142,12 +179,19 @@ export const CustomRangeDatePicker = ({ label, dependField = { dpnFieldName: '',
                         {...TransitionProps}
                         style={{
                             transformOrigin:
-                                placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                placement === 'bottom-start' ? 'right top' : 'left bottom',
                         }}
                     >
                         <Paper elevation={3} sx={{ display: 'flex' }}>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <RangeDatepicker startValue={dpStartValue} endValue={dpEndValue} onChangeStart={setDpStartValue} onChangeEnd={setDpEndValue} />
+                            <ClickAwayListener onClickAway={handleClickAway}>
+                                <Stack alignItems='flex-end' >
+                                    <RangeDatepicker startValue={dpStartValue} endValue={dpEndValue} onChangeStart={handleChangeStartDate} onChangeEnd={handleChangeEndDate} />
+                                    <CustomDivider sx={{ width: '100%', margin: 0 }} />
+                                    <Stack direction='row' sx={{ padding: 1 }} spacing={1}>
+                                        <Button variant='outlined' color='error' size='small' onClick={handleToggle}>Cancelar</Button>
+                                        <Button variant='outlined' size='small' onClick={onClickApply}>Aplicar</Button>
+                                    </Stack>
+                                </Stack>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
