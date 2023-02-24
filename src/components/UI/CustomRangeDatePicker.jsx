@@ -23,7 +23,6 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
 const CustomDivider = styled(Divider)(({ theme }) => ({
     margin: 0,
 }));
-//echindev
 const RangeListItem = ({ name }) => (
     <ListItem disablePadding>
         <ListItemButton>
