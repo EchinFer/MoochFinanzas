@@ -1,8 +1,16 @@
-import { Box } from '@mui/material'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
 
-export const NavItem = () => {
+export const NavItem = ({item, level}) => {
+  const {icon, title} = item;
+  const Icon = icon;
+  const itemIcon = item.icon ? <Icon style={{ fontSize: '1rem' }} /> : false;
   return (
-    <Box>NavItem</Box>
+    <ListItemButton>
+      <ListItemIcon>
+        {itemIcon}
+      </ListItemIcon>
+      <ListItemText primary={title} />
+    </ListItemButton>
   )
 }

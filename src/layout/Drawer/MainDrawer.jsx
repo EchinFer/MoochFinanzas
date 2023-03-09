@@ -1,60 +1,40 @@
 import { Inbox } from '@mui/icons-material'
-import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material'
+import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Stack, styled } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { useState } from 'react'
 import { drawerWidth } from '../../config'
+import DrawerContent from './DrawerContent'
 import { DrawerHeader } from './DrawerHeader/DrawerHeader'
 
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 export const MainDrawer = ({ openDrawer, handleDrawerToggle }) => {
-  const itemsMenu = [
-    {
-      name: "Inicio",
-      icon: <Inbox />
-    },
-    {
-      name: "Finanzas",
-      icon: <Inbox />
-    },
-    {
-      name: "Recordatorios",
-      icon: <Inbox />
-    },
-    {
-      name: "Tu día",
-      icon: <Inbox />
-    },
-  ];
-
 
   return (
-    <Box component='nav' sx={{ flexShrink: { md: 0 }, zIndex: 1300 }}>
-
+    <Box component='nav'>
       <Drawer
         anchor='left'
-        open={openDrawer}
         variant='persistent'
+        open={openDrawer}
         onClose={() => handleDrawerToggle(false)}
-        sx={{ width: `${openDrawer ? drawerWidth : 0}px` }}
+        sx={{
+          width: `${openDrawer ? drawerWidth : 0}px`,
+          '& .MuiDrawer-paper': {
+            // width: drawerWidth,
+            border: 0,
+            backgroundColor: 'primary',
+          }
+        }}
       >
-        <DrawerHeader />
+        <Offset sx={{ mt: 2 }} />
         <Stack
-          role="presentation"
-          sx={{ width: `${openDrawer ? drawerWidth : 0}px` }}
+          sx={{
+            width: `${openDrawer ? drawerWidth : 0}px`,
+            flex: '1 1 100%',
+            padding: '0px 16px'
+          }}
         >
-
-          <List>
-            {itemsMenu.map(({ name, icon }, index) => (
-              <ListItem key={index} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {icon}
-                  </ListItemIcon>
-                  <ListItemText primary={name} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          <DrawerContent />
         </Stack>
       </Drawer>
     </Box>

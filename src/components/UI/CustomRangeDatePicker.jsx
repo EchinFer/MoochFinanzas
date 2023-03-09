@@ -13,56 +13,6 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { rangesDatepicker } from '../../constants';
 import { checkPropTypes } from 'prop-types';
 
-const CustomIconButton = styled(IconButton)(({ theme }) => ({
-    borderRadius: 4,
-    backgroundColor: theme.palette.primary.main,
-    ':hover': {
-        backgroundColor: theme.palette.primary.light
-    }
-}));
-const CustomDivider = styled(Divider)(({ theme }) => ({
-    margin: 0,
-}));
-const RangeListItem = ({ name }) => (
-    <ListItem disablePadding>
-        <ListItemButton>
-            <ListItemText primary={name} />
-        </ListItemButton>
-    </ListItem>
-)
-const RangeDatepicker = forwardRef(({ startValue, endValue, onChangeStart, onChangeEnd }, ref) => (
-    <Stack ref={ref} direction='row' flexWrap={true}>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-            <List>
-                {
-                    rangesDatepicker.map((item, i) => (
-                        <RangeListItem key={i} name={item.name} />
-                    ))
-                }
-            </List>
-            <Divider orientation='vertical' />
-            <StaticDatePicker
-                displayStaticWrapperAs="desktop"
-                inputFormat={dateFormat.simple}
-                views={['year', 'month', 'day']}
-                renderInput={(params) => <TextField  {...params} size="small" helperText={params?.inputProps?.placeholder} />}
-                value={startValue}
-                onChange={onChangeStart}
-            />
-            <Divider orientation='vertical' />
-            <StaticDatePicker
-                displayStaticWrapperAs="desktop"
-                inputFormat={dateFormat.simple}
-                views={['year', 'month', 'day']}
-                renderInput={(params) => <TextField {...params} size="small" helperText={params?.inputProps?.placeholder} />}
-                value={endValue}
-                onChange={onChangeEnd}
-            />
-
-
-        </LocalizationProvider>
-    </Stack>
-));
 
 export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
 
@@ -81,12 +31,7 @@ export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
     }, [dpStartValue, dpEndValue])
 
     const onClickApply = () => {
-        // if (anchorRef.current && anchorRef.current.contains(event.target)) {
-        //     return;
-        // }
-
         setOpen(false);
-
         applyDateValue();
     }
 
@@ -104,11 +49,11 @@ export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
     const handleChangeEndDate = (newValue) => {
         setDpEndValue(newValue);
     }
+
     const handleClickAway = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-
         setOpen(false);
 
         applyDateValue();
@@ -151,9 +96,6 @@ export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
                         endAdornment: <InputAdornment position='end'><CalendarMonthIcon /></InputAdornment>,
                     }}
                 />
-                <CustomIconButton>
-                    <CachedIcon />
-                </CustomIconButton>
             </Stack>
 
 
@@ -203,3 +145,49 @@ export const CustomRangeDatePicker = ({ onChange, initialValue }) => {
 
     )
 }
+
+
+const CustomDivider = styled(Divider)(({ theme }) => ({
+    margin: 0,
+}));
+
+const RangeListItem = ({ name }) => (
+    <ListItem disablePadding>
+        <ListItemButton>
+            <ListItemText primary={name} />
+        </ListItemButton>
+    </ListItem>
+)
+const RangeDatepicker = forwardRef(({ startValue, endValue, onChangeStart, onChangeEnd }, ref) => (
+    <Stack ref={ref} direction='row' flexWrap={true}>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+            <List>
+                {
+                    rangesDatepicker.map((item, i) => (
+                        <RangeListItem key={i} name={item.name} />
+                    ))
+                }
+            </List>
+            <Divider orientation='vertical' />
+            <StaticDatePicker
+                displayStaticWrapperAs="desktop"
+                inputFormat={dateFormat.simple}
+                views={['year', 'month', 'day']}
+                renderInput={(params) => <TextField  {...params} size="small" helperText={params?.inputProps?.placeholder} />}
+                value={startValue}
+                onChange={onChangeStart}
+            />
+            <Divider orientation='vertical' />
+            <StaticDatePicker
+                displayStaticWrapperAs="desktop"
+                inputFormat={dateFormat.simple}
+                views={['year', 'month', 'day']}
+                renderInput={(params) => <TextField {...params} size="small" helperText={params?.inputProps?.placeholder} />}
+                value={endValue}
+                onChange={onChangeEnd}
+            />
+
+
+        </LocalizationProvider>
+    </Stack>
+));

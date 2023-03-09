@@ -1,6 +1,5 @@
-import { Stack } from '@mui/material'
+import { Stack, Toolbar } from '@mui/material'
 import React from 'react'
-import { Logo } from '../../../components/logo/Logo'
 
 export const DrawerHeader = () => {
   return (
@@ -9,7 +8,8 @@ export const DrawerHeader = () => {
         justifyContent='center'
         alignItems='center'
     >
-        <Logo />
+        {/* <Logo /> */}
+        {/* <Toolbar /> */}
     </Stack>
   )
 }

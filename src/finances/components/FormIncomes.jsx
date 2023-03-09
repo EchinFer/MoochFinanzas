@@ -100,7 +100,6 @@ export const FormIncomes = () => {
                                     name="esIngresoFijo"
                                     label="¿Es un ingreso fijo?"
                                 />
-
                                 <CustomTextField
                                     select
                                     name="tipoPeriodo"

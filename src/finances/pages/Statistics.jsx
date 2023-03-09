@@ -9,79 +9,27 @@ import { CustomRangeDatePicker } from '../../components/UI/CustomRangeDatePicker
 import { MainTitle } from '../../components/UI/MainTitle'
 import { AnalyticNumbers } from '../../home/components/AnalyticNumbers'
 import { BasicDataTable } from '../components/BasicDataTable';
+import { HistoryTableStatistics } from '../components/HistoryTableStatistics';
+import { TotalStatistics } from '../components/TotalStatistics';
 
-const CustomPaper = styled(Paper)(({ theme }) =>
-  theme.unstable_sx({
-    padding: 5,
-    borderRadius: 1,
-  }),
-);
+
 
 export const Statistics = () => {
-  const today = new Date()
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
 
-  const [rangeValue, setRangeValue] = useState({ startDate: today, endDate: today })
-
-  const handleOnChangeRangeDate = ({ startDate, endDate }) => {
-
-    setRangeValue({
-      startDate,
-      endDate
-    });
-
-  }
-
-  console.log(rangeValue);
 
   return (
-    <>
-      <Grid
-        container
-        spacing={3}
-        xs={12}
-      >
 
-        <Grid xs={12}>
-          <Stack direction='row' justifyContent='space-between'>
-            <MainTitle>Totales</MainTitle>
-            <CustomRangeDatePicker onChange={handleOnChangeRangeDate} />
-          </Stack>
-        </Grid>
+    <Grid
+      container
+      spacing={3}
+      xs={12}
+    >
 
-        <Grid xs={3}>
-          <AnalyticNumbers title={'Ingreso total'} value={'1.000.000'} />
-        </Grid>
-        <Grid xs={3}>
-          <AnalyticNumbers title={'Saldo neto'} value={'1.000.000'} />
-        </Grid>
-        <Grid xs={3}>
-          <AnalyticNumbers title={'Total gastos'} value={'1.000.000'} />
-        </Grid>
-        <Grid xs={3}>
-          <AnalyticNumbers title={'Saldo acumulado'} value={'1.000.000'} percentage={'54'} />
-        </Grid>
+      <TotalStatistics />
 
-        <Grid xs={6}>
-          <IncomeAreaChart slot={'week'} type='area' />
-        </Grid>
-        <Grid xs={6}>
-          <IncomeAreaChart slot={'week'} type='bar' />
-        </Grid>
+      <HistoryTableStatistics />
 
-        <Grid xs={12}>
-          <Stack direction='row' justifyContent='space-between'>
-            <MainTitle>Histórico</MainTitle>
-            <CustomRangeDatePicker onChange={handleOnChangeRangeDate} />
-          </Stack>
-        </Grid>
-        <Grid xs={12}>
-          <BasicDataTable />
-        </Grid>
-      </Grid>
-
-    </>
+    </Grid>
   )
 }
 
